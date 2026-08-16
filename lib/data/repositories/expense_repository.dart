@@ -92,3 +92,24 @@ class ExpenseRepository {
     return _db.transactionsDao.totalForType(type: 'income', start: start, end: end);
   }
 }
+
+Future<void> addGoal({
+  required String name,
+  required double targetAmount,
+  required DateTime startDate,
+  required DateTime targetDate,
+  String colorHex = 'FF1FAE8E',
+}) {
+  return _db.goalsDao.addGoal(
+    GoalsCompanion.insert(
+      name: name,
+      targetAmount: targetAmount,
+      startDate: startDate,
+      targetDate: targetDate,
+      colorHex: Value(colorHex),
+    ),
+  );
+}
+
+Future<void> contributeToGoal(int goalId, double amount) =>
+    _db.goalsDao.contribute(goalId, amount);
